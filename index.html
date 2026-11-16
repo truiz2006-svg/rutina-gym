@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rutina UL + PPL</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Rutina">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191919" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0AgMAAABAo+6hAAAADFBMVEWHrMIaGRkZGRkSEA+vILpzAAABw0lEQVR42u3Yv0sDMRQH8G/qVbQUWhAHdXFy7uDgeJOLS4d6IlUnJycnB/8FF9dWJ38NrYOCOJ8gIk5dhIp/gCAItdoq9tq4FO/FhBxFhQovUEhePw0h95q+VJTQQ4uBNWvWrFmzZs36R1qWfQNQok7YrZfeznRdLz1cmvS4N5x0tamVKNH3ZXFX+a7bW74oGNYt1yF3tYUM+JAVg34BcKBrAL5BV7vvqe26O49pv580HQCoGXTQfaktA6Dd/1nVOlGHx1Z9s6MMz/dtWm6s0TyUxRVVO+pn8xc0VTpzfsEyd9xXUqXpw7Xod4CuVAIViw6AVzKs9rTfAZ9VrPtNO1qkHHYnInWMXGaft6N00yPHSeTcrTI/S9a/rVMybLXIHOx4vXwbMB92r3i/Wf8r7UTqNOlP2/UQMEaGDWDSVg9C0II94SJr07ce/amJHS5kbOsu7tECUGwe+TY9tawMZxdt1SNGc2rtmev/J+8YT66KcgtS5x4xpkraoGeUmw1NFdN9pw1gSdMNJUq0C7Gq6YQSFV/liEzO5VP6bTTIk2i4C+JRfpxqc4sEjZI9G/TiWX2LmzQq+F9+1qxZs2bNmvWf60+KxXwY7H8/owAAAABJRU5ErkJggg==">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0AgMAAABAo+6hAAAADFBMVEWHrMIaGRkZGRkSEA+vILpzAAABw0lEQVR42u3Yv0sDMRQH8G/qVbQUWhAHdXFy7uDgeJOLS4d6IlUnJycnB/8FF9dWJ38NrYOCOJ8gIk5dhIp/gCAItdoq9tq4FO/FhBxFhQovUEhePw0h95q+VJTQQ4uBNWvWrFmzZs36R1qWfQNQok7YrZfeznRdLz1cmvS4N5x0tamVKNH3ZXFX+a7bW74oGNYt1yF3tYUM+JAVg34BcKBrAL5BV7vvqe26O49pv580HQCoGXTQfaktA6Dd/1nVOlGHx1Z9s6MMz/dtWm6s0TyUxRVVO+pn8xc0VTpzfsEyd9xXUqXpw7Xod4CuVAIViw6AVzKs9rTfAZ9VrPtNO1qkHHYnInWMXGaft6N00yPHSeTcrTI/S9a/rVMybLXIHOx4vXwbMB92r3i/Wf8r7UTqNOlP2/UQMEaGDWDSVg9C0II94SJr07ce/amJHS5kbOsu7tECUGwe+TY9tawMZxdt1SNGc2rtmev/J+8YT66KcgtS5x4xpkraoGeUmw1NFdN9pw1gSdMNJUq0C7Gq6YQSFV/liEzO5VP6bTTIk2i4C+JRfpxqc4sEjZI9G/TiWX2LmzQq+F9+1qxZs2bNmvWf60+KxXwY7H8/owAAAABJRU5ErkJggg==">
+<style>
+:root { color-scheme: light; }
+
+/* Layout: columna angosta tipo página de Notion, bloques sin tarjetas, tags de color suave, callout para el hombro */
+:root {
+  --bg: #FFFFFF;
+  --fg: #37352F;
+  --muted: #787774;
+  --line: #E9E9E7;
+  --hover: #F7F6F3;
+  --accent: #2383E2;
+  --tag-bg: #E3E2E0;
+  --tag-fg: #37352F;
+  --blue-bg: #D3E5EF;
+  --blue-fg: #183347;
+  --orange-bg: #FADEC9;
+  --orange-fg: #5D1715;
+  --font: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #191919; --fg: #E6E6E4; --muted: #9B9A97; --line: #2F2F2F; --hover: #252525;
+    --accent: #529CCA; --tag-bg: #373737; --tag-fg: #E6E6E4;
+    --blue-bg: #1F3A4D; --blue-fg: #A8D5F0; --orange-bg: #4A3220; --orange-fg: #FFC48A;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #191919; --fg: #E6E6E4; --muted: #9B9A97; --line: #2F2F2F; --hover: #252525;
+  --accent: #529CCA; --tag-bg: #373737; --tag-fg: #E6E6E4;
+  --blue-bg: #1F3A4D; --blue-fg: #A8D5F0; --orange-bg: #4A3220; --orange-fg: #FFC48A;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font); font-size: 16px; line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 48px 96px;
+}
+.wrap { max-width: 720px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--font); margin: 0; line-height: 1.2; text-wrap: balance; letter-spacing: -0.01em; }
+h1 { font-size: 40px; font-weight: 700; }
+h2 { font-size: 30px; font-weight: 700; }
+h3 { font-size: 18px; font-weight: 600; }
+.sub { color: var(--muted); margin: 10px 0 0; max-width: 62ch; }
+.label { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+.tabs-band { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-top: 28px; border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.tabs { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.tab {
+  font: 500 15px var(--font); padding: 8px 0 7px; border: 0; border-bottom: 2px solid transparent;
+  background: transparent; color: var(--muted); cursor: pointer; min-width: 0; border-radius: 4px 4px 0 0;
+}
+.tab:hover { background: var(--hover); }
+.tab small { display: block; font: 400 11px var(--font); color: var(--muted); margin-top: 1px; }
+.tab[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--fg); font-weight: 600; }
+.tab.rest { color: var(--muted); }
+.tab:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.day-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 16px; margin: 32px 0 4px; }
+.pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill { font: 500 12px var(--font); border-radius: 3px; padding: 1px 6px; background: var(--tag-bg); color: var(--tag-fg); }
+.pill.heavy { background: var(--blue-bg); color: var(--blue-fg); }
+
+.block { margin-top: 28px; }
+.block-title { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 0 4px 8px; border-bottom: 1px solid var(--line); }
+.row { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 2px 8px; align-items: start; padding: 7px 4px; border-radius: 4px; }
+.row:hover { background: var(--hover); }
+.row input[type=checkbox] { width: 16px; height: 16px; margin: 4px 0 0; accent-color: var(--accent); }
+.ex-name { font-weight: 500; }
+.ex-note { color: var(--muted); font-size: 14px; }
+.sr { font-size: 14px; color: var(--muted); white-space: nowrap; text-align: right; font-variant-numeric: tabular-nums; padding-top: 2px; }
+.row.done .ex-name { text-decoration: line-through; color: var(--muted); }
+.meta { grid-column: 2 / -1; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; }
+.tag { font: 500 11px var(--font); border-radius: 3px; padding: 0 6px; background: var(--orange-bg); color: var(--orange-fg); }
+.vid { font-size: 13px; color: var(--accent); text-decoration: none; }
+.vid:hover { text-decoration: underline; }
+
+.rest-box { margin-top: 20px; padding: 16px; border-radius: 4px; background: var(--hover); }
+button.link { font: 400 13px var(--font); background: none; border: 0; color: var(--muted); cursor: pointer; padding: 12px 4px 0; text-decoration: underline; }
+
+.shoulder { margin-top: 28px; border-radius: 4px; padding: 16px; background: var(--hover); }
+.shoulder p { margin: 4px 0 0; font-size: 15px; }
+
+section.gloss { margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--line); }
+.g-group { margin-top: 24px; }
+.g-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px; margin-top: 10px; }
+.g-card { border: 1px solid var(--line); border-radius: 4px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.g-card:hover { background: var(--hover); }
+.g-card p { margin: 0; font-size: 14px; color: var(--muted); flex: 1; }
+.foot { margin-top: 40px; color: var(--muted); font-size: 14px; }
+
+@media (max-width: 480px) {
+  body { padding-block: 28px 72px; }
+  h1 { font-size: 32px; }
+  h2 { font-size: 26px; }
+  .tab { font-size: 14px; }
+  .tab small { display: none; }
+  .row { grid-template-columns: 24px minmax(0, 1fr); }
+  .sr { grid-column: 2; text-align: left; }
+}
+
+html { background: var(--bg); -webkit-text-size-adjust: 100%; }
+html, body { margin: 0; }
+html { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body::before { display: none; }
+.tabs-band { top: 0; }
+* { -webkit-tap-highlight-color: transparent; }
+button, input, a { touch-action: manipulation; }
+#wake { display: block; margin-top: 10px; padding: 0; }
+@media (pointer: coarse) {
+  .row { grid-template-columns: 32px minmax(0, 1fr) auto; padding: 10px 4px; }
+  .row input[type=checkbox] { width: 22px; height: 22px; margin-top: 2px; }
+  .tab { padding-block: 12px 10px; }
+  .vid { padding: 4px 0; }
+}
+@media (pointer: coarse) and (max-width: 480px) { .row { grid-template-columns: 32px minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="label">Plan semanal · 5 días</div>
+  <h1>Rutina UL + PPL</h1>
+  <p class="sub">Upper y Lower pesados para arrancar la semana, Push, Pull y Legs de volumen para cerrarla. Sesiones de 60 a 75 minutos con calentamiento funcional, planchas y pesa rusa para la zona media.</p>
+
+  <button class="link" id="wake" type="button" hidden>Mantener pantalla encendida: no</button>
+
+  <div class="tabs-band"><div class="tabs" id="tabs" role="tablist" aria-label="Días de la semana"></div></div>
+
+  <main id="day"></main>
+
+  <section class="gloss" id="glosario">
+    <div class="label">Videos y técnica</div>
+    <h2>Ejercicios funcionales y core</h2>
+    <p class="sub">Cada enlace abre en YouTube una búsqueda del ejercicio, así elegís el video que mejor te explique. En todos mirá primero la técnica y recién después sumá carga o repeticiones.</p>
+    <div id="gloss"></div>
+  </section>
+
+  <p class="foot">Semana 1: entrá con 2 repeticiones en reserva (RIR 2) y anotá las cargas. Desde la semana 2 retomás la sobrecarga progresiva: al llegar al tope del rango de repeticiones, subís el peso la semana siguiente.</p>
+</div>
+
+<script>
+var G = {
+  catcamel:  {n:"Cat-camel", q:"cat camel ejercicio movilidad columna", t:"Calentamiento", d:"En cuadrupedia, redondeás y arqueás la columna despacio, siguiendo la respiración."},
+  wgs:       {n:"World's greatest stretch", q:"world's greatest stretch ejercicio como hacerlo", t:"Calentamiento", d:"Estocada profunda, mano interna al piso y rotás el torso abriendo el brazo hacia el techo."},
+  deepsquat: {n:"Sentadilla profunda con pausa", q:"sentadilla profunda pausa movilidad cadera tobillo", t:"Calentamiento", d:"Bajás lo más profundo que puedas con la espalda neutra y te quedás 3 a 5 segundos empujando las rodillas hacia afuera."},
+  birddog:   {n:"Bird dog", q:"bird dog ejercicio core como hacerlo", t:"Calentamiento", d:"En cuadrupedia, extendés brazo y pierna contrarios sin rotar la cadera ni arquear la lumbar."},
+  deadbug:   {n:"Dead bug", q:"dead bug ejercicio core tecnica", t:"Calentamiento", d:"Boca arriba, brazos al techo y rodillas a 90 grados. Bajás brazo y pierna contrarios sin despegar la lumbar del piso."},
+  rotext:    {n:"Rotación externa con banda", q:"rotacion externa hombro con banda elastica", t:"Hombro", d:"Codo pegado al costado a 90 grados, rotás el antebrazo hacia afuera con control. Es el ejercicio clave para cuidar el manguito."},
+  wallslide: {n:"Wall slides", q:"wall slides ejercicio hombro escapula", t:"Hombro", d:"Espalda y antebrazos contra la pared, deslizás los brazos hacia arriba sin arquear la zona lumbar."},
+  hip9090:   {n:"90/90 de cadera", q:"90/90 cadera movilidad ejercicio", t:"Movilidad", d:"Sentado con ambas rodillas a 90 grados, pasás de un lado al otro rotando las caderas sin usar las manos."},
+  plank:     {n:"Plancha frontal en antebrazos", q:"plancha frontal antebrazos tecnica correcta", t:"Core", d:"Codos bajo los hombros, cuerpo en línea recta de cabeza a talones, glúteos y abdomen apretados. Mejor en antebrazos que en manos para cuidar el hombro."},
+  sideplank: {n:"Plancha lateral", q:"plancha lateral tecnica correcta oblicuos", t:"Core", d:"De costado sobre el antebrazo, subís la cadera hasta alinear el cuerpo y sostenés. Trabaja oblicuos y estabilidad lateral."},
+  halo:      {n:"Halo con pesa rusa", q:"kettlebell halo ejercicio pesa rusa tecnica", t:"Pesa rusa", d:"Con una pesa rusa liviana agarrada por los costados, la hacés circular alrededor de la cabeza con el abdomen firme. Si no te sale cómodo, lo salteás."},
+  goblet:    {n:"Sentadilla goblet con pesa rusa", q:"goblet squat pesa rusa tecnica correcta", t:"Pesa rusa", d:"Pesa rusa pegada al pecho, bajás profundo con el torso erguido y pausa de 2 a 3 segundos abajo. El peso al frente ayuda a mantener el tronco firme."},
+  swing:     {n:"Kettlebell swing", q:"kettlebell swing tecnica correcta principiantes", t:"Pesa rusa", d:"Bisagra de cadera, no sentadilla: la cadera empuja hacia adelante y la pesa sube por inercia hasta el pecho. Empezá liviano y con espalda neutra."},
+  ankle:     {n:"Movilidad de tobillo en pared", q:"movilidad de tobillo rodilla a la pared ejercicio", t:"Movilidad", d:"De frente a la pared, llevás la rodilla hacia adelante sin despegar el talón del piso. Mejora la profundidad de la sentadilla y el hack."},
+  glutebridge:{n:"Puente de glúteo", q:"puente de glúteo ejercicio tecnica activacion", t:"Calentamiento", d:"Boca arriba con rodillas flexionadas, subís la cadera apretando glúteos y bajás controlado, sin arquear la lumbar."},
+  openbook:  {n:"Apertura torácica (open book)", q:"open book rotacion toracica ejercicio", t:"Movilidad", d:"De costado con rodillas flexionadas, abrís el brazo de arriba hacia atrás rotando el torso y siguiendo la mano con la mirada."},
+  pallof:    {n:"Pallof press inestable (banda con peso colgado)", q:"pallof press banda con peso colgado inestable", t:"Core", d:"De costado a la banda a la altura del pecho, empujás las manos al frente y resistís que el torso rote. El peso colgado hace oscilar la banda y el core estabiliza todo el tiempo."},
+  trasnuca:  {n:"Extensión de tríceps tras nuca sentado", q:"extension de triceps tras nuca sentado mancuerna tecnica", t:"Técnica", d:"Sentado con respaldo, mancuerna o polea detrás de la cabeza, codos apuntando al frente y cerca de las orejas. Extendés los brazos sin arquear la espalda."},
+  crunch:    {n:"Crunch en polea", q:"crunch en polea alta tecnica abdominales", t:"Core", d:"De rodillas frente a la polea alta, con la cuerda junto a la cabeza, enrollás el torso llevando las costillas hacia la pelvis, sin tirar con los brazos."},
+  hollow:    {n:"Hollow hold", q:"hollow hold ejercicio core tecnica", t:"Core", d:"Boca arriba, brazos y piernas extendidos, hombros y piernas despegados del piso con la lumbar pegada."},
+  farmer:    {n:"Farmer walk", q:"farmer walk ejercicio caminata del granjero", t:"Core", d:"Caminás con una mancuerna pesada en cada mano, torso erguido y pasos cortos, sin inclinarte hacia los lados."},
+  chop:      {n:"Leñador en polea (wood chop)", q:"wood chop polea leñador ejercicio core", t:"Core", d:"Polea alta, tirás en diagonal hasta la cadera contraria rotando el tronco, con los brazos casi extendidos."},
+  legraise:  {n:"Elevación de piernas", q:"elevacion de piernas core tecnica sin balanceo", t:"Core", d:"Subís las piernas controladas, boca arriba o colgado, sin balancearte y con la lumbar apoyada."},
+  facepull:  {n:"Face pull", q:"face pull polea tecnica hombro posterior", t:"Técnica", d:"Polea a la altura de la cara, tirás la cuerda hacia la frente abriendo los codos y juntando las escápulas."}
+};
+
+var WARM_UP = [
+  {k:"catcamel", sr:"x8"},
+  {k:"openbook", sr:"x6 por lado"},
+  {k:"rotext", sr:"x12"},
+  {k:"wallslide", sr:"x10"},
+  {k:"plank", sr:"2 x 30 s", core:1},
+  {k:"sideplank", sr:"2 x 20 s por lado", core:1},
+  {k:"halo", sr:"x6 por sentido", core:1}
+];
+var WARM_LOW = [
+  {k:"hip9090", sr:"x6 por lado"},
+  {k:"ankle", sr:"x8 por lado"},
+  {k:"wgs", sr:"x5 por lado"},
+  {k:"goblet", sr:"x8 con pausa", core:1},
+  {k:"swing", sr:"2 x 12", core:1},
+  {k:"glutebridge", sr:"x12"},
+  {k:"plank", sr:"2 x 30 s", core:1},
+  {k:"sideplank", sr:"2 x 20 s por lado", core:1}
+];
+
+var DAYS = [
+  {d:"Lun", name:"Upper", kind:"Pesado", w:"up",
+   abs:[{k:"crunch", sr:"3 x 12-15"}, {k:"hollow", sr:"3 x 20-30 s"}, {k:"pallof", sr:"3 x 10 por lado"}],
+   ex:[
+    {n:"Press Hammer", sr:"3 x 6-8", note:"Compuesto principal de pecho", main:1},
+    {n:"Remo T", sr:"3 x 6-8", note:"Compuesto principal de espalda", main:1},
+    {n:"Jalón al pecho", sr:"2 x 8-10"},
+    {n:"Vuelos laterales en polea", sr:"3 x 10-15", note:"Hasta la altura del hombro"},
+    {n:"Face pull", sr:"2 x 12-15", fn:"facepull", note:"Podés alternar con posterior en polea"},
+    {n:"Curl barra W", sr:"2 x 8-10", ss:"A"},
+    {n:"Extensión de tríceps en polea", sr:"2 x 8-10", ss:"A"}
+   ]},
+  {d:"Mar", name:"Lower", kind:"Pesado", w:"low",
+   abs:[{k:"hollow", sr:"3 x 20-30 s"}, {k:"legraise", sr:"3 x 10-12"}],
+   ex:[
+    {n:"Hack Squat", sr:"3 x 6-8", note:"Compuesto principal", main:1},
+    {n:"Peso muerto", sr:"3 x 6-8", note:"Espalda neutra. Si lo sentís pesado, bajá a 3 x 5-6", main:1},
+    {n:"Sillón isquio", sr:"2 x 10-12"},
+    {n:"Gemelos", sr:"3 x 10-12", note:"Pausa abajo"},
+    {n:"Aductores", sr:"2 x 10-12"}
+   ]},
+  {d:"Mié", rest:true, name:"Descanso", note:"Recuperación. Si querés, 10 minutos de movilidad suave: cat-camel, 90/90 de cadera y apertura torácica.", opt:["catcamel","hip9090","openbook"]},
+  {d:"Jue", name:"Push", kind:"Volumen", w:"up",
+   abs:[{k:"farmer", sr:"3 x 30 m"}],
+   ex:[
+    {n:"Press Hammer", sr:"3 x 8-10", main:1},
+    {n:"Chest Fly", sr:"3 x 10-12"},
+    {n:"Vuelos laterales con mancuerna", sr:"3 x 12-15", note:"Hasta la altura del hombro"},
+    {n:"Tríceps en polea (cuerda)", sr:"3 x 8-12", ss:"A"},
+    {n:"Extensión tras nuca sentado", sr:"2 x 10-12", ss:"A", fn:"trasnuca", note:"Peso moderado y recorrido controlado"}
+   ]},
+  {d:"Vie", name:"Pull", kind:"Volumen", w:"up",
+   abs:[{k:"chop", sr:"3 x 10 por lado"}],
+   ex:[
+    {n:"Jalón cerrado", sr:"3 x 8-10", main:1},
+    {n:"Remo abierto con barra libre", sr:"3 x 8-10", note:"Codos controlados y hombros atrás, sin adelantarlos", main:1},
+    {n:"Remo Gironda", sr:"2 x 10-12"},
+    {n:"Posterior en máquina o polea", sr:"3 x 12-15"},
+    {n:"Curl Scott", sr:"3 x 8-10", ss:"A"},
+    {n:"Martillo en polea", sr:"2 x 10-12", ss:"A"},
+    {n:"Vuelos laterales en polea", sr:"2 x 12-15"}
+   ]},
+  {d:"Sáb", name:"Legs", kind:"Volumen", w:"low",
+   abs:[{k:"legraise", sr:"3 x 10-12"}],
+   ex:[
+    {n:"Hack Squat o prensa", sr:"3 x 8-10", note:"Más liviano que el martes", main:1},
+    {n:"Sillón cuádriceps", sr:"3 x 10-12"},
+    {n:"Sillón isquio", sr:"3 x 10-12"},
+    {n:"Aductores", sr:"2 x 10-12", ss:"A"},
+    {n:"Vuelos laterales con mancuerna", sr:"2 x 12-15", ss:"A"},
+    {n:"Gemelos", sr:"3 x 12-15"}
+   ]},
+  {d:"Dom", rest:true, name:"Descanso", note:"Recuperación completa. Dormí tus horas y dejá el día libre de gimnasio.", opt:[]}
+];
+
+var FULL = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
+var store = {done:{}, tab:null};
+try { var s = localStorage.getItem("rutina-ul-ppl"); if (s) store = JSON.parse(s) || store; } catch (e) {}
+function save() { try { localStorage.setItem("rutina-ul-ppl", JSON.stringify(store)); } catch (e) {} }
+function yt(q) { return "https://www.youtube.com/results?search_query=" + encodeURIComponent(q); }
+function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+
+var today = (new Date().getDay() + 6) % 7;
+var cur = (typeof store.tab === "number") ? store.tab : today;
+
+function renderTabs() {
+  var box = document.getElementById("tabs"); box.innerHTML = "";
+  DAYS.forEach(function (d, i) {
+    var b = el("button", "tab" + (d.rest ? " rest" : ""), d.d + "<small>" + (d.rest ? "libre" : d.name) + "</small>");
+    b.setAttribute("role", "tab"); b.setAttribute("aria-selected", i === cur ? "true" : "false");
+    b.onclick = function () { cur = i; store.tab = i; save(); renderTabs(); renderDay(); };
+    box.appendChild(b);
+  });
+}
+
+function videoLink(k) { return '<a class="vid" target="_blank" rel="noopener" href="' + yt(G[k].q) + '">▶ Ver video</a>'; }
+
+function renderDay() {
+  var d = DAYS[cur], box = document.getElementById("day"); box.innerHTML = "";
+  var head = el("div", "day-head");
+  head.appendChild(el("div", "", '<div class="label">' + FULL[cur] + (cur === today ? " · hoy" : "") + '</div><h2>' + d.name + '</h2>'));
+  if (d.rest) {
+    box.appendChild(head);
+    var rb = el("div", "rest-box", "<p style='margin:0'>" + d.note + "</p>");
+    if (d.opt.length) {
+      var links = d.opt.map(function (k) { return '<li>' + G[k].n + ' · ' + videoLink(k) + '</li>'; }).join("");
+      rb.appendChild(el("ul", "", links));
+      rb.lastChild.style.cssText = "margin:12px 0 0;padding-left:20px;display:grid;gap:6px";
+    }
+    box.appendChild(rb); return;
+  }
+  var p = el("div", "pills");
+  p.appendChild(el("span", "pill " + (d.kind === "Pesado" ? "heavy" : ""), d.kind));
+  p.appendChild(el("span", "pill", "60-75 min"));
+  head.appendChild(p); box.appendChild(head);
+
+  // calentamiento
+  var wk = (d.w === "low" ? WARM_LOW : WARM_UP).concat((d.abs || []).map(function (a) { return {k:a.k, sr:a.sr, core:1}; }));
+  var wb = el("div", "block");
+  wb.appendChild(el("div", "block-title", "<h3>Calentamiento y abdominales (" + (d.w === "low" ? "piernas" : "tren superior") + ")</h3><span class='label'>Al principio</span>"));
+  wk.forEach(function (w, j) { wb.appendChild(rowFor("w" + cur + "-" + j, G[w.k].n, w.sr, null, w.k, !!w.core, false)); });
+  box.appendChild(wb);
+
+  // trabajo principal
+  var mb = el("div", "block");
+  mb.appendChild(el("div", "block-title", "<h3>Trabajo principal</h3><span class='label'>Compuestos 2 min · accesorios 60-90 s</span>"));
+  d.ex.forEach(function (x, j) { mb.appendChild(rowFor("e" + cur + "-" + j, x.n, x.sr, x.note, x.fn, x.core, x.ss)); });
+  box.appendChild(mb);
+
+  var rs = el("button", "link", "Reiniciar checks del día");
+  rs.onclick = function () { Object.keys(store.done).forEach(function (k) { if (k.indexOf("-") > 0 && (k.charAt(1) + "") === String(cur) && (k.charAt(0) === "w" || k.charAt(0) === "e")) delete store.done[k]; }); save(); renderDay(); };
+  box.appendChild(rs);
+
+}
+
+function rowFor(key, name, sr, note, fn, core, ss) {
+  var r = el("div", "row" + (store.done[key] ? " done" : "") + (ss ? " ss" : ""));
+  var cb = el("input"); cb.type = "checkbox"; cb.id = key; cb.checked = !!store.done[key];
+  cb.setAttribute("aria-label", "Marcar " + name);
+  cb.onchange = function () { if (cb.checked) store.done[key] = 1; else delete store.done[key]; save(); r.classList.toggle("done", cb.checked); };
+  r.appendChild(cb);
+  var n = el("div", "");
+  n.appendChild(el("div", "ex-name", name));
+  if (note) n.appendChild(el("div", "ex-note", note));
+  r.appendChild(n);
+  r.appendChild(el("div", "sr", sr));
+  var tags = [];
+  if (ss) tags.push('<span class="tag">SUPERSERIE · sin descanso entre los dos</span>');
+  if (core) tags.push('<span class="tag">CORE</span>');
+  if (fn) tags.push(videoLink(fn));
+  if (tags.length) r.appendChild(el("div", "meta", tags.join("")));
+  return r;
+}
+
+function renderGloss() {
+  var order = ["Calentamiento","Hombro","Movilidad","Core","Pesa rusa","Técnica"];
+  var box = document.getElementById("gloss");
+  order.forEach(function (t) {
+    var g = el("div", "g-group", "<h3>" + t + "</h3>");
+    var grid = el("div", "g-grid");
+    Object.keys(G).forEach(function (k) {
+      if (G[k].t !== t) return;
+      grid.appendChild(el("div", "g-card", "<strong>" + G[k].n + "</strong><p>" + G[k].d + "</p>" + videoLink(k)));
+    });
+    g.appendChild(grid); box.appendChild(g);
+  });
+}
+
+renderTabs(); renderDay(); renderGloss();
+
+// pantalla encendida y modo sin conexión
+var wl = null;
+function wakeLabel() { var b = document.getElementById("wake"); if (b) b.textContent = "Mantener pantalla encendida: " + (store.wake ? "sí" : "no"); }
+function wakeOn() { try { navigator.wakeLock.request("screen").then(function (l) { wl = l; }).catch(function () {}); } catch (e) {} }
+function wakeOff() { try { if (wl) { wl.release(); wl = null; } } catch (e) {} }
+(function () {
+  var b = document.getElementById("wake");
+  if (b && "wakeLock" in navigator) {
+    b.hidden = false; wakeLabel();
+    if (store.wake) wakeOn();
+    b.onclick = function () { store.wake = !store.wake; save(); wakeLabel(); if (store.wake) wakeOn(); else wakeOff(); };
+    document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible" && store.wake) wakeOn(); });
+  }
+  if ("serviceWorker" in navigator) { window.addEventListener("load", function () { navigator.serviceWorker.register("./sw.js").catch(function () {}); }); }
+})();
+</script>
+</body>
+</html>
